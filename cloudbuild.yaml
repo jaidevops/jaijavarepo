@@ -20,12 +20,12 @@ steps:
     entrypoint: mvn
     args: ["package", "-Dmaven.test.skip=true"]
   artifacts:
-  mavenArtifacts:
-  - repository: 'https://location-maven.pkg.dev/jaioct2/maven-repo'
-    path: '.'
-    artifactId: 'hello-spring'
-    groupId: 'com.example'
-    version: '1.0.0'  
+    mavenArtifacts:
+    - repository: 'https://location-maven.pkg.dev/jaioct2/maven-repo'
+      path: '.'
+      artifactId: 'hello-spring'
+      groupId: 'com.example'
+      version: '1.0.0'  
   - name: gcr.io/cloud-builders/docker
     args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
 images: ["asia-south1-docker.pkg.dev/jaioct2/jairepo/service"]
