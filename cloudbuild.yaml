@@ -20,8 +20,8 @@ steps:
     entrypoint: mvn
     args: ["package", "-Dmaven.test.skip=true"]
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/hellospring", "--build-arg=JAR_FILE=target/hello-spring-1.0.0.jar", "."]
-images: ["us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/hellospring"]
+    args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
+images: ["asia-south1-docker.pkg.dev/jaioct2/jairepo/service"]
 options:
   logging: CLOUD_LOGGING_ONLY
   pool:
