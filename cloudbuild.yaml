@@ -18,17 +18,17 @@ steps:
     args: ["test"]
   - name: maven:3-eclipse-temurin-17-alpine
     entrypoint: mvn
-    args: ["package", "-Dmaven.test.skip=true"]
-  artifacts:
+    args: ["package", "-Dmaven.test.skip=true"]  
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
+images: ["asia-south1-docker.pkg.dev/jaioct2/jairepo/service"]
+artifacts:
     mavenArtifacts:
     - repository: 'https://location-maven.pkg.dev/jaioct2/maven-repo'
       path: '.'
       artifactId: 'hello-spring'
       groupId: 'com.example'
-      version: '1.0.0'  
-  - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
-images: ["asia-south1-docker.pkg.dev/jaioct2/jairepo/service"]
+      version: '1.0.0'
 options:
   logging: CLOUD_LOGGING_ONLY
   pool:
