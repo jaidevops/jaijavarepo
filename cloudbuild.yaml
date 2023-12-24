@@ -15,9 +15,6 @@
 steps:
   - name: maven:3-eclipse-temurin-17-alpine
     entrypoint: mvn
-    args: ["clean compile"]
-  - name: maven:3-eclipse-temurin-17-alpine
-    entrypoint: mvn
     args: ["test"]
   - name: maven:3-eclipse-temurin-17-alpine
     entrypoint: mvn
