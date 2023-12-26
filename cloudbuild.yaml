@@ -22,7 +22,7 @@ steps:
   - name: gcr.io/cloud-builders/mvn
     args: ['deploy']  
   - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/jaioct2/service1:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/jaioct2/service1:$COMMIT_SHA', "--build-arg=JAR_FILE=target/*.jar", "."]
     #args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
