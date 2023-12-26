@@ -22,8 +22,25 @@ steps:
   - name: gcr.io/cloud-builders/mvn
     args: ['deploy']  
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
-images: ["asia-south1-docker.pkg.dev/jaioct2/jairepo/service"]
+    args: ['build', '-t', 'gcr.io/jaioct2/service1:$COMMIT_SHA', '.']
+    #args: ["build", "-t", "asia-south1-docker.pkg.dev/jaioct2/jairepo/service", "--build-arg=JAR_FILE=target/*.jar", "."]
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/jaioct2/service1:$COMMIT_SHA']
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'service1'
+    - '--image'
+    - 'gcr.io/jaioct2/service1:$COMMIT_SHA'
+    - '--region'
+    - 'asia-south1'  
+images: 
+- 'gcr.io/jaioct2/service1:$COMMIT_SHA' 
+#["asia-south1-docker.pkg.dev/jaioct2/jairepo/service"]
 options:
   logging: CLOUD_LOGGING_ONLY
   pool:
